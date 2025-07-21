@@ -10,6 +10,8 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import requests
 from datetime import datetime
+import random
+import string
 
 load_dotenv()
 GOOGLE_SHEET_ID = os.getenv('GOOGLE_SHEET_ID')
@@ -88,6 +90,14 @@ def get_sales_totals():
         elif t_or_t == 'table':
             table_total += amt
     return ticket_count, ticket_total, table_total
+
+def generate_ticket_code():
+    return f'{random.randint(100, 999)}-{random.randint(100, 999)}-{random.randint(100, 999)}'
+
+def generate_table_code():
+    part1 = ''.join(random.choices(string.ascii_uppercase + string.digits, k=3))
+    part2 = ''.join(random.choices(string.ascii_uppercase + string.digits, k=3))
+    return f'TABLE-{part1}-{part2}'
 
 @app.route('/')
 def index():
@@ -326,6 +336,12 @@ def submit():
     proof_base64 = data.get('proof_base64', '')
     timestamp = datetime.now().isoformat()
 
+    # Generate ticket/table code
+    if ticket_or_table.lower() == 'ticket':
+        new_code = generate_ticket_code()
+    else:
+        new_code = generate_table_code()
+
     if not buyer_name or not buyer_contact or not ticket_or_table or not amount_paid or not member_name:
         return jsonify({'success': False, 'error': 'Missing required fields.'}), 400
 
@@ -346,7 +362,9 @@ def submit():
     else:
         return jsonify({'success': False, 'error': 'Ticket or Table must be specified.'}), 400
 
-    row = [timestamp, buyer_name, buyer_contact, ticket_table_type, ticket_or_table, amount_paid, member_name, proof_base64]
+    # The Google Sheet row now includes the new code.
+    # Make sure your Google Sheet has a 'Ticket Number' column.
+    row = [timestamp, buyer_name, new_code, buyer_contact, ticket_table_type, ticket_or_table, amount_paid, member_name, proof_base64]
     try:
         sheet.append_row(row)
     except Exception as e:
@@ -354,10 +372,12 @@ def submit():
 
     ticket_count, ticket_total, table_total = get_sales_totals()
 
-    buyer_msg = f"<p>Thank you for your payment!</p><p>Details:<br>Type: {ticket_or_table} {ticket_table_type}<br>Amount: {amount_paid} RMB<br>Member: {member_name}</p><p>Summer Chase 2.0 Awaits!!!</p><p>Happy Raving!!!</p>"
-    sms_msg = f"Thank you for your payment! {ticket_or_table} {ticket_table_type}, {amount_paid} RMB. Member: {member_name}. Summer Chase 2.0 Awaits!!! Happy Raving!!!"
+    # Update email content to include the new code
+    code_type = "Ticket Number" if ticket_or_table.lower() == 'ticket' else "Table Code"
+    buyer_msg = f"<p>Thank you for your payment!</p><p>Details:<br>Type: {ticket_or_table} {ticket_table_type}<br>Amount: {amount_paid} RMB<br>Member: {member_name}</p><h3>Your {code_type} is: {new_code}</h3><p>Please present this at the event for entry.</p>"
+    sms_msg = f"Thank you for your payment! Your {code_type} is {new_code}. Member: {member_name}."
     if is_email:
-        send_email(buyer_contact, "Payment Confirmation", buyer_msg)
+        send_email(buyer_contact, "Your Event Ticket/Table Confirmation", buyer_msg)
     if is_phone:
         send_sms(buyer_contact, sms_msg)
 

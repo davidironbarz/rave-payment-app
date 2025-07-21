@@ -10,3 +10,5 @@ __pycache__/
 # IDEs
 .vscode/
 .idea/
+
+service_account.json
