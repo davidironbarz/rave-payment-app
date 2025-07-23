@@ -26,6 +26,10 @@ with open('config.json', 'r') as f:
 MEMBER_EMAILS = config.get('member_emails', [])
 MEMBER_PHONES = config.get('member_phones', [])
 
+# Debug: Print loaded emails
+print(f"Loaded member emails: {MEMBER_EMAILS}")
+print(f"Loaded member phones: {MEMBER_PHONES}")
+
 scope = [
     'https://spreadsheets.google.com/feeds',
     'https://www.googleapis.com/auth/drive'
@@ -1919,12 +1923,30 @@ def submit():
 
     summary = f"A new sale was made!<br>Buyer: {buyer_name}<br>Type: {ticket_or_table} {ticket_type}<br>Amount: {amount_paid} RMB<br>Member: {member_name}<br><br>Totals:<br>Tickets sold: {ticket_count} (¥{ticket_total})<br>Table sales: ¥{table_total}"
     sms_summary = f"New sale! {ticket_or_table} {ticket_type}, {amount_paid} RMB. By {member_name}. Tickets: {ticket_count} (¥{ticket_total}), Tables: ¥{table_total}."
+    
+    # Debug: Print which emails will be sent
+    print(f"Sending notifications to member emails: {MEMBER_EMAILS}")
+    
     for email in MEMBER_EMAILS:
+        print(f"Sending email to: {email}")
         send_email(email, "Rave Sale Notification", summary)
     for phone in MEMBER_PHONES:
+        print(f"Sending SMS to: {phone}")
         send_sms(phone, sms_summary)
 
     return jsonify({'success': True, 'message': 'Payment recorded and notifications sent.'})
+
+@app.route('/test-emails')
+def test_emails():
+    """Test route to verify email configuration"""
+    return jsonify({
+        'member_emails': MEMBER_EMAILS,
+        'member_phones': MEMBER_PHONES,
+        'email_count': len(MEMBER_EMAILS),
+        'phone_count': len(MEMBER_PHONES),
+        'config_loaded': bool(config),
+        'emails_from_config': config.get('member_emails', []) if config else []
+    })
 
 if __name__ == '__main__':
     app.run(debug=True) 
