@@ -3,4 +3,5 @@ gspread
 google-auth
 oauth2client
 python-dotenv
-gunicorn 
+gunicorn
+Flask-Login 

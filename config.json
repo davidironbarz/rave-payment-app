@@ -1,9 +1,28 @@
 {
   "member_emails": [
-    "dunbardavid444@gmail.com"
+    "dunbardavid444@gmail.com",
+    "ddjwalk07@gmail.com",
+    "eeckargustavo17@gmail.com",
+    "aalmutwalla@gmail.com",
+    "jjelemag1226@gmail.com",
+    "qQuayemelvin19@outlook.com",
+    "ssamuelkromah301@gmail.com",
+    "sshadwinnimene@gmail.com",
+    "mmsmitha599@gmail.com" 
   ],
   "member_phones": [
     "+12345678901",
     "+10987654321"
-  ]
+  ],
+  "admins": {
+    "Rave_David": "scrypt:32768:8:1$DIqx5ItfvdoFXVcE$8ae722cbbb2ce543ae9990a4d9c0420724ca71c2bb99cc4eca41ad0b02c6a31dbc4e0cd403d37f3c108baff8297d61683c754e9ca765636461fd142cfcd90d6b",
+    "Rave_Walker": "scrypt:32768:8:1$hG7U8fq0Rbfy46TX$4545e4fdf57a5b89715d01e439954fcb230c272090eafaed3d6c7ba34b410d14935825379f4aeeda1400b9f709ad2ff55cf817135ecb00b5f0bf5bcbce43881b",
+    "Rave_Gustavo": "scrypt:32768:8:1$zFqtTcAbWRbfGpVl$d5782d4cc5b7f2ad720cb06a2568e92841fc5ab57160c81bf2faab20bad334341ef0843ee8667bf0e322eb41f4d075cf95aec549a96395e8654c5f657840d44a",
+    "Rave_Jayzo": "scrypt:32768:8:1$AuS3NXZmku7BOLni$b9f24f4170f8555a2f1c8883e6e7618af630b3349f79e2a3c76eda3637feda99d79fee9124805f80fadc731cdd18b8464d8018c2fae1577c9eeee6dabe1b28e9",
+    "Rave_Cass": "scrypt:32768:8:1$3lYU4sM8ot4tygJA$42c34bdf88bea7eb53093659c663ebed25edc150ba580078e5de8f1531b35fad93cd65d44da19f9df92e5bc1d14907ab259c26d5caf3b00706838f6f73943d80",
+    "Rave_Calteck": "scrypt:32768:8:1$WKUUSjwxVnLHbY6L$078dda254f6fffd0297ebb40f0210fb4c78c3cac5906217b007110d4ff96eb60021917cd84566c95a09f16a3fc05ce5ef2dbb5eb5b1db1787586d2163157af6a",
+    "Rave_Shadwin": "scrypt:32768:8:1$93sCdljIHD2rUbc9$4086fafc58ca66770907d44aec55667c33759e85ffc6b749bccb4b600dc857d7e175b03fae88e35cfbe553571b6f1d29a160646955dbfcece1d80c46bbf3d138",
+    "Rave_Smith": "scrypt:32768:8:1$9SxLk9RP7rkBxXPu$5d829aaa63e562884bc6c321814e73e10cc6d56ae49db25718044caa5f6725b8f5aac0b14cff3f928047c1ed681cad4c0dc0c55d1eabdc612ba180eb90c41e5a",
+    "Rave_Westbrook": "scrypt:32768:8:1$NhdTP9mLK6UbfCPD$0fbb484b19e26f20abca62e28c9f1a254940cd63bbfb0ae670c58270521c20b4f0ba531887bd3daf2084f447dc57069a56450c97d258f1df892af0aa5ee822ff"
+  }
 } 

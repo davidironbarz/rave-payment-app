@@ -17,6 +17,27 @@
     .qr-codes { display: flex; justify-content: space-around; margin-bottom: 20px; }
     .qr-codes img { width: 120px; border: 1px solid #ccc; background: #fff; }
     .qr-codes div { text-align: center; font-size: 14px; }
+    /* Admin login link */
+    .admin-link {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #ff4444;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: background 0.3s;
+      z-index: 10000;
+      border: 2px solid white;
+    }
+    .admin-link:hover {
+      background: #cc0000;
+      transform: scale(1.05);
+    }
     /* Spinner styles */
     .spinner-overlay {
       display: none;
@@ -49,7 +70,11 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
 </head>
 <body>
+  <a href="/admin/login" class="admin-link">Admin Login</a>
   <h2>Record Payment</h2>
+  <div style="text-align: center; margin-bottom: 20px;">
+    <a href="/admin/login" style="background: #ff4444; color: white; padding: 10px 20px; text-decoration: none; border-radius: 20px; font-weight: bold;">🔐 Admin Login</a>
+  </div>
   <div class="qr-codes">
     <div>
       <img src="wechat_qr.jpg" alt="WeChat Pay QR">
