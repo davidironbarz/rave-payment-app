@@ -375,6 +375,64 @@ def admin_dashboard():
         tr:nth-child(even) { background: #f8f9fa; }
         tr:hover { background: #e8f4fd; transition: background 0.3s ease; }
         
+        /* Mobile responsive table */
+        @media (max-width: 768px) {
+          .table-container {
+            overflow-x: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: white;
+          }
+          
+          table {
+            min-width: 800px;
+            margin-top: 0;
+            border-radius: 0;
+            box-shadow: none;
+          }
+          
+          th, td {
+            padding: 10px 8px;
+            font-size: 14px;
+            white-space: nowrap;
+          }
+          
+          .controls {
+            flex-direction: column;
+            gap: 10px;
+          }
+          
+          .search-box, .filter-select, .export-btn {
+            width: 100%;
+            min-width: auto;
+          }
+          
+          .stats {
+            flex-direction: column;
+            gap: 10px;
+          }
+          
+          .stat {
+            min-width: auto;
+            width: 100%;
+          }
+          
+          .container {
+            padding: 20px 15px;
+          }
+          
+          .nav-bar {
+            flex-direction: column;
+            gap: 15px;
+            align-items: stretch;
+          }
+          
+          .payment-form-link, .logout {
+            text-align: center;
+            width: 100%;
+          }
+        }
+        
         .logout { 
           float: right; 
           background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
@@ -612,20 +670,22 @@ def admin_dashboard():
     </div>
     
     <h3>📋 All Submissions</h3>
-    <table id="dataTable">
-      <thead>
-        <tr>
-          {% for col in columns %}<th>{{ col }}</th>{% endfor %}
-        </tr>
-      </thead>
-      <tbody>
-        {% for row in records %}
-        <tr>
-          {% for col in columns %}<td>{{ row.get(col, '') }}</td>{% endfor %}
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+    <div class="table-container">
+      <table id="dataTable">
+        <thead>
+          <tr>
+            {% for col in columns %}<th>{{ col }}</th>{% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in records %}
+          <tr>
+            {% for col in columns %}<td>{{ row.get(col, '') }}</td>{% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
     </div>
     </body>
     </html>
@@ -952,42 +1012,55 @@ LOGIN_TEMPLATE = '''
     .back-link a:hover {
       color: #764ba2;
     }
-  </style>
-  <script>
-    // Clear form fields immediately and on page load
-    function clearForm() {
-        const usernameField = document.querySelector('input[name="username"]');
-        const passwordField = document.querySelector('input[name="password"]');
-        if (usernameField) usernameField.value = '';
-        if (passwordField) passwordField.value = '';
-        if (usernameField) usernameField.focus();
+    
+    /* Mobile responsive improvements for login */
+    @media (max-width: 768px) {
+      body {
+        padding: 15px;
+      }
+      
+      .login-container {
+        padding: 30px 25px;
+        border-radius: 15px;
+      }
+      
+      h2 {
+        font-size: 1.8em;
+        margin-bottom: 25px;
+      }
+      
+      input {
+        padding: 18px 20px;
+        font-size: 18px; /* Better for mobile typing */
+      }
+      
+      button {
+        padding: 20px;
+        font-size: 18px;
+      }
+      
+      .error {
+        padding: 20px;
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
     }
-
-    // Clear immediately
-    clearForm();
-
-    // Clear on page load
-    window.onload = clearForm;
-
-    // Clear on page focus (when user returns to tab)
-    window.onfocus = clearForm;
-
-    // Prevent form submission if fields are empty
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.querySelector('form');
-        if (form) {
-            form.addEventListener('submit', function(e) {
-                const username = document.querySelector('input[name="username"]').value.trim();
-                const password = document.querySelector('input[name="password"]').value.trim();
-                if (!username || !password) {
-                    e.preventDefault();
-                    alert('Please enter both username and password');
-                    return false;
-                }
-            });
-        }
-    });
-  </script>
+    
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 25px 20px;
+      }
+      
+      h2 {
+        font-size: 1.6em;
+      }
+      
+      input, button {
+        padding: 16px 18px;
+        font-size: 16px;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="login-container">
@@ -1357,6 +1430,114 @@ def index():
     .choices__item--selected {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
       color: white !important;
+    }
+    
+    /* Mobile responsive improvements */
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+      
+      .main-container {
+        padding: 25px 20px;
+        border-radius: 15px;
+      }
+      
+      h2 {
+        font-size: 1.8em;
+        margin-bottom: 25px;
+      }
+      
+      .form-group {
+        margin-bottom: 20px;
+      }
+      
+      input, select, button {
+        padding: 18px 20px;
+        font-size: 18px; /* Better for mobile typing */
+      }
+      
+      button {
+        padding: 20px;
+        font-size: 18px;
+        margin-top: 10px;
+      }
+      
+      .admin-link {
+        top: 15px;
+        right: 15px;
+        padding: 10px 15px;
+        font-size: 12px;
+        min-width: 100px;
+      }
+      
+      .admin-button {
+        padding: 15px 25px;
+        font-size: 16px;
+        margin: 15px 0;
+      }
+      
+      /* Better mobile form spacing */
+      .form-group label {
+        font-size: 1em;
+        margin-bottom: 8px;
+      }
+      
+      /* Enhanced mobile touch targets */
+      .choices__inner {
+        padding: 18px 20px !important;
+        min-height: auto !important;
+      }
+      
+      .choices__item {
+        padding: 15px 20px !important;
+        font-size: 16px !important;
+      }
+      
+      /* Better mobile confirmation/error messages */
+      .confirmation, .error {
+        padding: 20px;
+        font-size: 16px;
+        margin-top: 25px;
+      }
+      
+      /* Mobile spinner improvements */
+      .spinner-container {
+        padding: 30px 25px;
+      }
+      
+      .spinner {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .spinner-text {
+        font-size: 16px;
+      }
+    }
+    
+    /* Extra small mobile devices */
+    @media (max-width: 480px) {
+      .main-container {
+        padding: 20px 15px;
+      }
+      
+      h2 {
+        font-size: 1.6em;
+      }
+      
+      input, select, button {
+        padding: 16px 18px;
+        font-size: 16px;
+      }
+      
+      .admin-link {
+        top: 10px;
+        right: 10px;
+        padding: 8px 12px;
+        font-size: 11px;
+        min-width: 90px;
+      }
     }
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
